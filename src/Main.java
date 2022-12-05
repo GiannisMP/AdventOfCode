@@ -1,6 +1,4 @@
-import day1.Calories;
-import day2.RPS;
-import day5.Crates;
+import day4.Cleaning;
 
 public class Main {
 
@@ -8,6 +6,7 @@ public class Main {
 //        System.out.println(new Calories().p2());
 //        System.out.println(new RPS().p1());
 //        System.out.println(new RPS().p2());
-        System.out.println(new Crates().execute(false));
+        System.out.println(new Cleaning().findCompleteOverlaps());
+//        System.out.println(new Crates().execute(false));
     }
 }
