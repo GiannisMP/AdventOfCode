@@ -1,12 +1,16 @@
 package day5;
 
-import base.Advent;
+import com.google.common.collect.Lists;
+import general.Advent;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Crates extends Advent {
-
+    private final static String TIMES = "move";
+    private final static String FROM = "from";
+    private final static String TO = "to";
     private final Map<Integer, Stack<Character>> stacks = new HashMap<>();
 
     private Optional<Character> getValue(String s, int location) {
@@ -37,24 +41,20 @@ public class Crates extends Advent {
         stacks.get(to).push(stacks.get(from).pop());
     }
 
-    private void move(int from, int to, int times) {
-        IntStream.range(0, times).forEach(__ -> move(from, to));
+    private void move(Map<String, Integer> action) {
+        IntStream.range(0, action.get(TIMES)).forEach(__ -> move(action.get(FROM), action.get(TO)));
     }
 
-    private void moveOrdered(int from, int to, int howMany) {
+    private void moveOrdered(Map<String, Integer> action) {
         Stack<Character> middle = new Stack<>();
-        IntStream.range(0, howMany).forEach(__ -> middle.push(stacks.get(from).pop()));
-        IntStream.range(0, howMany).forEach(__ -> stacks.get(to).push(middle.pop()));
+        IntStream.range(0, action.get(TIMES)).forEach(__ -> middle.push(stacks.get(action.get(FROM)).pop()));
+        IntStream.range(0, action.get(TIMES)).forEach(__ -> stacks.get(action.get(TO)).push(middle.pop()));
     }
 
-    private void handleAction(String line) {
-        String[] tokens = line.split(" ");
-        move(Integer.parseInt(tokens[3]), Integer.parseInt(tokens[5]), Integer.parseInt(tokens[1]));
-    }
-
-    private void handleActionInOrder(String line) {
-        String[] tokens = line.split(" ");
-        moveOrdered(Integer.parseInt(tokens[3]), Integer.parseInt(tokens[5]), Integer.parseInt(tokens[1]));
+    private Map<String, Integer> getAction(String line) {
+        return Lists.partition(Arrays.stream(line.split(" ")).toList(), 2)
+                .stream()
+                .collect(Collectors.toMap(s -> s.get(0), s -> Integer.parseInt(s.get(1))));
     }
 
     private String calculateResult() {
@@ -78,9 +78,9 @@ public class Crates extends Advent {
         IntStream.range(splitIndex + 1, lines.size())
                 .boxed()
                 .map(lines::get)
-                .forEach(ordered ? this::handleActionInOrder : this::handleAction);
+                .map(this::getAction)
+                .forEach(ordered ? this::moveOrdered : this::move);
 
         return calculateResult();
     }
-
 }

@@ -1,6 +1,6 @@
 package day2;
 
-import base.Advent;
+import general.Advent;
 
 import java.util.Map;
 

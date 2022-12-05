@@ -1,6 +1,6 @@
 package day1;
 
-import base.Advent;
+import general.Advent;
 
 import java.util.ArrayList;
 import java.util.Collections;

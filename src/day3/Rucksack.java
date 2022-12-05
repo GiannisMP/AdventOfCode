@@ -1,10 +1,10 @@
 package day3;
 
-import base.Advent;
+import com.google.common.collect.Lists;
+import general.Advent;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Rucksack extends Advent {
@@ -27,9 +27,7 @@ public class Rucksack extends Advent {
                 .mapToInt(priority::apply)
                 .findFirst();
     }
-    private List<List<String>> divide(List<String> list, int size) {
-        return new ArrayList<>(list.stream().collect(Collectors.groupingBy(i -> list.indexOf(i) / size)).values());
-    }
+
     public Integer calculatePriorityForLine() {
         return lines.stream()
                 .map(this::priorityForLine)
@@ -38,7 +36,7 @@ public class Rucksack extends Advent {
                 .sum();
     }
     public Integer calculatePriorityForLines() {
-        return divide(lines, 3)
+        return Lists.partition(lines, 3)
                 .stream()
                 .map(this::priorityForLines)
                 .filter(OptionalInt::isPresent)
