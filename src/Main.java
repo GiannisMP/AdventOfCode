@@ -1,4 +1,5 @@
 import day8.Forest;
+import day9.Rope;
 
 public class Main {
 
@@ -13,5 +14,6 @@ public class Main {
 //        Forest forest = new Forest();
 //        System.out.println(forest.findVisible());
 //        System.out.println(forest.calculateMaxScenicValue());
+        System.out.println(new Rope(1).execute());
     }
 }
