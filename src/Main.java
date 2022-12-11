@@ -1,4 +1,5 @@
 import day10.CPU;
+import day11.Jungle;
 
 public class Main {
 
@@ -14,8 +15,12 @@ public class Main {
 //        System.out.println(forest.findVisible());
 //        System.out.println(forest.calculateMaxScenicValue());
 //        System.out.println(new Rope(1).execute());
-        CPU cpu = new CPU(40);
-        System.out.println(cpu.execute());
-        cpu.draw();
+//        CPU cpu = new CPU(40);
+//        System.out.println(cpu.execute());
+//        cpu.draw();
+        Jungle jungle = new Jungle();
+        System.out.println(jungle.play());
+        //174439
+        //163595
     }
 }
