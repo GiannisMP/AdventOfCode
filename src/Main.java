@@ -1,5 +1,4 @@
-import day10.CPU;
-import day11.Jungle;
+import year2022.day11.Jungle;
 
 public class Main {
 
