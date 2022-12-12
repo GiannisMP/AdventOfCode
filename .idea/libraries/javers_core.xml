@@ -2,11 +2,11 @@
   <library name="javers.core" type="repository">
     <properties maven-id="org.javers:javers-core:6.7.1" />
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/javers-core-6.7.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.32.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/gson-2.9.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/picocontainer-2.15.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/classgraph-4.8.128.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/javers/javers-core/6.7.1/javers-core-6.7.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.32/slf4j-api-1.7.32.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.9.0/gson-2.9.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/picocontainer/picocontainer/2.15/picocontainer-2.15.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/github/classgraph/classgraph/4.8.128/classgraph-4.8.128.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

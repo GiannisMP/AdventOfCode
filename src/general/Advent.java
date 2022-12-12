@@ -11,7 +11,7 @@ public abstract class Advent {
 
     public Advent() {
         try {
-            lines = Files.readAllLines(Paths.get("src/" + getClass().getPackage().getName() + "/input"));
+            lines = Files.readAllLines(Paths.get("src/" + getClass().getPackage().getName().replace(".", "/") + "/input"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
