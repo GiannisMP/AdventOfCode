@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class Position {
     enum DIRECTION { LEFT, RIGHT, TOP, BOTTOM }
-
     private final Map<DIRECTION, Position> positionMap = new HashMap<>();
     private final int weight;
     private final boolean startPosition;
@@ -17,7 +16,6 @@ public class Position {
         this.startPosition = startPosition;
         this.goal = goal;
     }
-
     public void adjacent(Position position, DIRECTION direction) {
         positionMap.put(direction, position);
     }
@@ -30,15 +28,12 @@ public class Position {
     public boolean isGoal() {
         return goal;
     }
-
     public int getWeight() {
         return weight;
     }
-
     public Position getPrevious() {
         return previous;
     }
-
     public void setPrevious(Position previous) {
         this.previous = previous;
     }

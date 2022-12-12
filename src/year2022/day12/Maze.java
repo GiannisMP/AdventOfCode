@@ -1,33 +1,29 @@
 package year2022.day12;
 
 import general.Advent;
-import org.checkerframework.checker.units.qual.A;
-import org.javers.common.collections.Lists;
-import year2022.day8.Tree;
 
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Maze extends Advent {
-
-    private final List<List<Position>> positions;
     private Position start;
+    private final List<Position> lowestPoints = new ArrayList<>();
     private Position end;
-
+    private Integer shortestPathToStart = null;
     public Maze() {
-        positions = lines.stream().map(String::chars).map(IntStream::boxed)
+        List<List<Position>> positions = lines.stream().map(String::chars).map(IntStream::boxed)
                 .map(line -> line
                         .map(c -> new Position(c, c == 'S', c == 'E'))
                         .peek(p -> {
-                            if (p.isStartPosition()) start = p;
+                            if (p.isStartPosition()) {
+                                start = p;
+                                lowestPoints.add(p);
+                            }
+                            if (p.getWeight() == 0) lowestPoints.add(p);
                             if (p.isGoal()) end = p;
                         })
-                        .collect(Collectors.toList()))
-                .collect(Collectors.toList());
+                        .collect(Collectors.toList())).toList();
         for (int i = 0; i < positions.size(); i++) {
             for (int j = 0; j < positions.get(i).size(); j++) {
                 if (i > 0) {
@@ -49,12 +45,11 @@ public class Maze extends Advent {
             }
         }
     }
-
-    public void dfs() {
+    public void BFS(Position startPosition) {
         List<Position> visited = new ArrayList<>();
         Queue<Position> queue = new LinkedList<>();
-        queue.add(start);
-        visited.add(start);
+        queue.add(startPosition);
+        visited.add(startPosition);
         while (!queue.isEmpty()) {
             Position pos = queue.poll();
             pos.getNeighbours()
@@ -68,18 +63,32 @@ public class Maze extends Advent {
                     });
         }
     }
-
-    public Integer shortestPathToStart(Position position, Integer current) {
-        return position.getPrevious().isStartPosition() ? current : shortestPathToStart(position.getPrevious(), ++current);
+    public Integer shortestPathToStart(Position currentPosition, Position startPosition, Integer current) {
+        Integer finalCurrent = current;
+        if (currentPosition.getPrevious() == null
+                || Optional.ofNullable(shortestPathToStart).filter(i -> finalCurrent > i).isPresent())
+            return -1;
+        return currentPosition.getPrevious().equals(startPosition)
+                ? current
+                : shortestPathToStart(currentPosition.getPrevious(), startPosition, ++current);
+    }
+    public Integer shortestPathToAny() {
+        return lowestPoints
+                .stream()
+                .peek(this::BFS)
+                .mapToInt(pos -> shortestPathToStart(end, pos, 1))
+                .filter(i -> i >= 0)
+                .min()
+                .orElse(-1);
     }
     public Integer shortestPathToStart() {
-        dfs();
-        return shortestPathToStart(end, 1);
+        BFS(start);
+        return shortestPathToStart(end, start, 1);
     }
-
     public static void main(String[] args) {
         Maze maze = new Maze();
-        System.out.println(maze.shortestPathToStart());
+        maze.shortestPathToStart = maze.shortestPathToStart();
+        System.out.println(maze.shortestPathToStart);
+        System.out.println(maze.shortestPathToAny());
     }
-
 }
