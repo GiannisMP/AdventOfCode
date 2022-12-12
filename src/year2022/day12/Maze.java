@@ -16,10 +16,7 @@ public class Maze extends Advent {
 
     private final List<List<Position>> positions;
     private Position start;
-
-    public static List<Position> visited = new ArrayList<>();
-
-    public static ConcurrentHashMap<UUID, CompletionStage<Optional<Path>>> paths = new ConcurrentHashMap<>();
+    private Position end;
 
     public Maze() {
         positions = lines.stream().map(String::chars).map(IntStream::boxed)
@@ -27,6 +24,7 @@ public class Maze extends Advent {
                         .map(c -> new Position(c, c == 'S', c == 'E'))
                         .peek(p -> {
                             if (p.isStartPosition()) start = p;
+                            if (p.isGoal()) end = p;
                         })
                         .collect(Collectors.toList()))
                 .collect(Collectors.toList());
@@ -52,13 +50,36 @@ public class Maze extends Advent {
         }
     }
 
-    public Integer calculateMinToGoal() {
-        return start.minDistanceToGoal(new Path()).get().getPositions().size();
+    public void dfs() {
+        List<Position> visited = new ArrayList<>();
+        Queue<Position> queue = new LinkedList<>();
+        queue.add(start);
+        visited.add(start);
+        while (!queue.isEmpty()) {
+            Position pos = queue.poll();
+            pos.getNeighbours()
+                    .stream()
+                    .filter(p -> !visited.contains(p))
+                    .filter(p -> p.getWeight() <= pos.getWeight() + 1)
+                    .forEach(p -> {
+                        queue.add(p);
+                        visited.add(p);
+                        p.setPrevious(pos);
+                    });
+        }
+    }
+
+    public Integer shortestPathToStart(Position position, Integer current) {
+        return position.getPrevious().isStartPosition() ? current : shortestPathToStart(position.getPrevious(), ++current);
+    }
+    public Integer shortestPathToStart() {
+        dfs();
+        return shortestPathToStart(end, 1);
     }
 
     public static void main(String[] args) {
         Maze maze = new Maze();
-        System.out.println(maze.calculateMinToGoal());
+        System.out.println(maze.shortestPathToStart());
     }
 
 }
