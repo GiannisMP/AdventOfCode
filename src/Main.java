@@ -1,4 +1,4 @@
-import year2022.day11.Jungle;
+import year2023.day1.Calibration;
 
 public class Main {
 
@@ -17,8 +17,9 @@ public class Main {
 //        CPU cpu = new CPU(40);
 //        System.out.println(cpu.execute());
 //        cpu.draw();
-        Jungle jungle = new Jungle();
-        System.out.println(jungle.play());
+//        Jungle jungle = new Jungle();
+        Calibration calibration = new Calibration();
+        System.out.println(calibration.p1());
         //174439
         //163595
     }
