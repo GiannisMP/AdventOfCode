@@ -1,4 +1,5 @@
 import year2023.day1.Calibration;
+import year2023.day2.Cubes;
 
 public class Main {
 
@@ -18,8 +19,11 @@ public class Main {
 //        System.out.println(cpu.execute());
 //        cpu.draw();
 //        Jungle jungle = new Jungle();
-        Calibration calibration = new Calibration();
-        System.out.println(calibration.p1());
+//        Calibration calibration = new Calibration();
+//        System.out.println(calibration.p1());
+        Cubes cubes = new Cubes();
+        System.out.println(cubes.valid());
+        System.out.println(cubes.minimum());
         //174439
         //163595
     }
