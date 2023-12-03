@@ -1,5 +1,6 @@
 import year2023.day1.Calibration;
 import year2023.day2.Cubes;
+import year2023.day3.Engine;
 
 public class Main {
 
@@ -21,10 +22,13 @@ public class Main {
 //        Jungle jungle = new Jungle();
 //        Calibration calibration = new Calibration();
 //        System.out.println(calibration.p1());
-        Cubes cubes = new Cubes();
-        System.out.println(cubes.valid());
-        System.out.println(cubes.minimum());
-        //174439
-        //163595
+//        Cubes cubes = new Cubes();
+//        System.out.println(cubes.valid());
+//        System.out.println(cubes.minimum());
+        Engine engine = new Engine();
+        engine.findAdjacentPoints(Engine::isGear);
+        engine.execute();
+        System.out.println(engine.getAdjacentSum());
+        System.out.println(engine.getGearRatio());
     }
 }
