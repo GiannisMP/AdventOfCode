@@ -1,6 +1,8 @@
 import year2023.day1.Calibration;
 import year2023.day2.Cubes;
 import year2023.day3.Engine;
+import year2023.day4.Lottery;
+import year2023.day5.Garden;
 
 public class Main {
 
@@ -25,10 +27,15 @@ public class Main {
 //        Cubes cubes = new Cubes();
 //        System.out.println(cubes.valid());
 //        System.out.println(cubes.minimum());
-        Engine engine = new Engine();
-        engine.findAdjacentPoints(Engine::isGear);
-        engine.execute();
-        System.out.println(engine.getAdjacentSum());
-        System.out.println(engine.getGearRatio());
+//        Engine engine = new Engine();
+//        engine.findAdjacentPoints(Engine::isGear);
+//        engine.execute();
+//        System.out.println(engine.getAdjacentSum());
+//        System.out.println(engine.getGearRatio());
+//        Lottery lottery = new Lottery();
+//        System.out.println(lottery.calculateScore().intValue());
+//        System.out.println(lottery.calculateCards());
+        Garden garden = new Garden();
+        System.out.println("RESULT - " + garden.calculate());
     }
 }
