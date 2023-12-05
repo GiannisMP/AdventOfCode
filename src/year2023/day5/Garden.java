@@ -4,9 +4,11 @@ import general.Advent;
 import general.Utils;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 
 public class Garden extends Advent {
@@ -41,6 +43,7 @@ public class Garden extends Advent {
         return futures.stream().map(CompletableFuture::join).mapToLong(Long.class::cast).min().orElse(0);
     }
     public long calculateParallel() {
+        //TODO: merge ranges so that only one map necessary and skip unnecessary checks
         List<Long> seeds = Utils.parseSpacedLongNumbers(lines.get(0).split(":")[1]);
         List<CompletableFuture<Long>>futures = new ArrayList<>();
         for (int j=0; j<seeds.size(); j+=2)
