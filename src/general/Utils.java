@@ -1,7 +1,9 @@
 package general;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Utils {
@@ -25,6 +27,10 @@ public class Utils {
         return Arrays.stream(s.trim().split("\\s+"))
                 .map(Long::parseLong)
                 .toList();
+    }
+
+    public static Long concat(List<Long> numbers) {
+        return Long.parseLong(numbers.stream().map(Object::toString).collect(Collectors.joining()));
     }
 
     public record Record(int id, String data){}

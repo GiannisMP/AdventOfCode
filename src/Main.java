@@ -3,6 +3,8 @@ import year2023.day2.Cubes;
 import year2023.day3.Engine;
 import year2023.day4.Lottery;
 import year2023.day5.Garden;
+import year2023.day6.Race;
+import year2023.day7.Poker;
 
 public class Main {
 
@@ -35,7 +37,13 @@ public class Main {
 //        Lottery lottery = new Lottery();
 //        System.out.println(lottery.calculateScore().intValue());
 //        System.out.println(lottery.calculateCards());
-        Garden garden = new Garden();
-        System.out.println("RESULT - " + garden.calculate());
+//        Garden garden = new Garden();
+//        System.out.println("RESULT - " + garden.calculate());
+//        Race race = new Race();
+//        System.out.println(race.run());
+//        System.out.println(race.finalRun());
+        Poker poker = new Poker();
+        System.out.println(poker.run("AKQJT98765432", false));
+        System.out.println(poker.run("AKQT98765432J", true));
     }
 }
