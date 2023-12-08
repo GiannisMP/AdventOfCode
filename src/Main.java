@@ -5,6 +5,7 @@ import year2023.day4.Lottery;
 import year2023.day5.Garden;
 import year2023.day6.Race;
 import year2023.day7.Poker;
+import year2023.day8.Desert;
 
 public class Main {
 
@@ -42,8 +43,13 @@ public class Main {
 //        Race race = new Race();
 //        System.out.println(race.run());
 //        System.out.println(race.finalRun());
-        Poker poker = new Poker();
-        System.out.println(poker.run("AKQJT98765432", false));
-        System.out.println(poker.run("AKQT98765432J", true));
+//        Poker poker = new Poker();
+//        System.out.println(poker.run("AKQJT98765432", false));
+//        System.out.println(poker.run("AKQT98765432J", true));
+        Desert desert = new Desert();
+//        System.out.println(desert.run());
+        System.out.println(desert.traverse("AAA", "ZZZ"));
+        System.out.println(desert.traverse("A", "Z"));
+
     }
 }

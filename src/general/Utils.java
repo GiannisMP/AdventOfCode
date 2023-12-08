@@ -1,5 +1,6 @@
 package general;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -31,6 +32,11 @@ public class Utils {
 
     public static Long concat(List<Long> numbers) {
         return Long.parseLong(numbers.stream().map(Object::toString).collect(Collectors.joining()));
+    }
+
+    public static BigInteger lcm(List<BigInteger> numbers) {
+        BigInteger gcd = numbers.stream().reduce(BigInteger::gcd).orElse(BigInteger.ONE);
+        return numbers.stream().map(n -> n.divide(gcd)).reduce(BigInteger::multiply).map(n -> n.multiply(gcd)).orElse(BigInteger.ZERO);
     }
 
     public record Record(int id, String data){}
