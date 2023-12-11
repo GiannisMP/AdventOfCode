@@ -1,4 +1,5 @@
 import year2023.day1.Calibration;
+import year2023.day11.Universe;
 import year2023.day2.Cubes;
 import year2023.day3.Engine;
 import year2023.day4.Lottery;
@@ -46,10 +47,12 @@ public class Main {
 //        Poker poker = new Poker();
 //        System.out.println(poker.run("AKQJT98765432", false));
 //        System.out.println(poker.run("AKQT98765432J", true));
-        Desert desert = new Desert();
-//        System.out.println(desert.run());
-        System.out.println(desert.traverse("AAA", "ZZZ"));
-        System.out.println(desert.traverse("A", "Z"));
+//        Desert desert = new Desert();
+//        System.out.println(desert.traverse("AAA", "ZZZ"));
+//        System.out.println(desert.traverse("A", "Z"));
+        Universe universe = new Universe();
+        System.out.println(universe.findShortestPaths(2));
+        System.out.println(universe.findShortestPaths(1000000));
 
     }
 }
