@@ -1,12 +1,4 @@
-import year2023.day1.Calibration;
-import year2023.day11.Universe;
-import year2023.day2.Cubes;
-import year2023.day3.Engine;
-import year2023.day4.Lottery;
-import year2023.day5.Garden;
-import year2023.day6.Race;
-import year2023.day7.Poker;
-import year2023.day8.Desert;
+import year2023.day13.Volcano;
 
 public class Main {
 
@@ -50,9 +42,13 @@ public class Main {
 //        Desert desert = new Desert();
 //        System.out.println(desert.traverse("AAA", "ZZZ"));
 //        System.out.println(desert.traverse("A", "Z"));
-        Universe universe = new Universe();
-        System.out.println(universe.findShortestPaths(2));
-        System.out.println(universe.findShortestPaths(1000000));
+//        Universe universe = new Universe();
+//        System.out.println(universe.findShortestPaths(2));
+//        System.out.println(universe.findShortestPaths(1000000));
+//        Springs springs = new Springs();
+//        springs.uniqueArrangements();
+        Volcano mirrors = new Volcano();
+        System.out.println(mirrors.calculate(Volcano.Result.TRUE));
 
     }
 }
