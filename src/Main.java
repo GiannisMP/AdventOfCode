@@ -1,4 +1,6 @@
 import year2023.day13.Volcano;
+import year2023.day14.Dish;
+import year2023.day14.SimpleDish;
 
 public class Main {
 
@@ -47,8 +49,11 @@ public class Main {
 //        System.out.println(universe.findShortestPaths(1000000));
 //        Springs springs = new Springs();
 //        springs.uniqueArrangements();
-        Volcano mirrors = new Volcano();
-        System.out.println(mirrors.calculate(Volcano.Result.TRUE));
-
+//        Volcano mirrors = new Volcano();
+//        System.out.println(mirrors.calculate(Volcano.Result.TRUE));
+        SimpleDish simpleDish = new SimpleDish();
+        System.out.println(simpleDish.calculateWeight());
+        Dish dish = new Dish();
+        System.out.println(dish.calculateWeight(1000000000));
     }
 }
