@@ -5,6 +5,7 @@ import general.Utils;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Springs extends Advent {
 
@@ -20,157 +21,56 @@ public class Springs extends Advent {
 
     }
 
-    public int processSpring(Spring spring) {
-        List<Cursor> cursors = new ArrayList<>();
-        for (Integer number : spring.ecc)
-            cursors.add(new Cursor(cursors.isEmpty() ? 0 : cursors.get(cursors.size() - 1).location + cursors.get(cursors.size() - 1).size + 1, number, spring.state, spring));
-        for (int i = 0; i < cursors.size() - 1; i++)
-            cursors.get(i).setNext(cursors.get(i+1));
-        spring.setCursors(cursors);
-        while (cursors.get(0).move()) {
-            System.out.println("moved");
-        }
-        return 0;
+    public int process() {
+        process(springs.get(2), 0, 0);
+        return springs.stream().mapToInt(s -> process(s,0,0)).peek(System.out::println).sum();
     }
 
-    public void uniqueArrangements() {
-        springs.forEach(this::processSpring);
+    private int findPossibleArrangements(Spring spring, int start, int end, int eccIndex) {
+        int sum = 0;
+        for (int i = start; i < end - spring.ecc.get(eccIndex) + 1; i += 1) {
+            if (spring.isValid(spring.ecc.get(eccIndex), i)) {
+                if (eccIndex < spring.ecc.size() - 1 ){
+                    int res = process(spring, i + spring.ecc.get(eccIndex) + 1, eccIndex + 1);
+                    sum += res;
+                } else sum++;
+            }
+        }
+        return sum;
+    }
+
+    private int process(Spring spring, int s, int eccIndex) {
+        return findPossibleArrangements(spring,
+                s,
+                spring.state.length() - (eccIndex < spring.ecc.size() - 1 ? IntStream.range(eccIndex + 1, spring.ecc.size()).map(spring.ecc::get).sum() + spring.ecc.size() - eccIndex - 1 : 0),
+                eccIndex);
     }
 
     static final class Spring {
         private final String state;
         private final List<Integer> ecc;
-        private List<Cursor> cursors;
 
         private Set<String> validStates = new HashSet<>();
 
         Spring(String state, List<Integer> ecc) {
             this.state = state;
             this.ecc = ecc;
-            this.cursors = new ArrayList<>();
         }
 
         public String state() {
             return state;
         }
 
-        public void addCursor(Cursor cursor) {
-            cursors.add(cursor);
-        }
-
-        public void setCursors(List<Cursor> cursors) {
-            this.cursors = cursors;
-        }
 
         public List<Integer> ecc() {
             return ecc;
         }
 
-        public void checkIfValid() {
-            if (stateIsValid()) validStates.add(cursors.stream().map(Cursor::getLocation).map(Objects::toString).collect(Collectors.joining()));
+        private boolean isValid(int size, int location) {
+            return !state.substring(location, location + size).contains(".")
+                    && (location == 0 || state.charAt(location - 1) != '&')
+                    && (location+size >= state.length() - 1 || state.charAt(location+size+1) != '&');
         }
 
-        public boolean stateIsValid() {
-            return cursors.stream().map(Cursor::stateIsValid).reduce(Boolean::logicalAnd).orElse(false);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) return true;
-            if (obj == null || obj.getClass() != this.getClass()) return false;
-            var that = (Spring) obj;
-            return Objects.equals(this.state, that.state) &&
-                    Objects.equals(this.ecc, that.ecc);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(state, ecc);
-        }
-
-        @Override
-        public String toString() {
-            return "Spring[" +
-                    "state=" + state + ", " +
-                    "ecc=" + ecc + ']';
-        }
-
-
-        }
-
-    static class Cursor {
-
-        private int location;
-        private int size;
-        private Cursor next;
-
-        private Spring parent;
-        private String map;
-        private int validStates = 0;
-
-        public Cursor(int location, int size, String map, Spring parent) {
-            this.location = location;
-            this.map = map;
-            this.size = size;
-            this.parent = parent;
-        }
-
-        public int getLocation() {
-            return location;
-        }
-
-        public void setLocation(int location) {
-            this.location = location;
-        }
-
-        public Cursor getNext() {
-            return next;
-        }
-
-        public void setNext(Cursor next) {
-            this.next = next;
-        }
-
-        public String getMap() {
-            return map;
-        }
-
-        public void setMap(String map) {
-            this.map = map;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public void setSize(int size) {
-            this.size = size;
-        }
-        public boolean stateIsValid() {
-            return !map.substring(location, location + size).contains(".");
-        }
-
-        public boolean move() {
-            if (next != null) {
-                if (next.move()) {
-                    int nextLocation = next.location;
-                    while (next.move()) {}
-                    next.location = nextLocation;
-                }
-                if (next.location > location + size + 1) {
-                    location++;
-                    parent.checkIfValid();
-                    return true;
-                };
-            } else {
-                if (location + size < map.length()) {
-                    location++;
-                    parent.checkIfValid();
-                    return true;
-                }
-            }
-            return false;
-        }
     }
-
 }
