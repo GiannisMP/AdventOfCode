@@ -3,7 +3,9 @@ package year2023.day12;
 import general.Advent;
 import general.Utils;
 
-import java.util.*;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -21,30 +23,37 @@ public class Springs extends Advent {
 
     }
 
-    public int process() {
+    public BigInteger process() {
         return springs.stream()
-                .mapToInt(s -> {
-                    int res = process(s,0,0);
-                    System.out.println(res + " " + s.state + s.ecc);
-                    return res;
-                })
-                .sum();
+                .map(s -> {
+//                    BigInteger resss = process(s.multi(), 0, 0);
+//                    if (resss.compareTo(BigInteger.valueOf(7)) == 0) {
+////                        System.out.println(s.state);
+////                        System.out.println(process(s, 0, 0));
+////                        System.out.println(process(s.multi(), 0, 0));
+////                        System.out.println(process(s.triple(), 0, 0));
+//                    }
+                    BigInteger res1 = process(s,0,0);
+                    BigInteger res2 = process(s.multi(),0,0);
+                    BigInteger base = res2.divide(res1);
+                    return base.pow(4).multiply(res1);
+                }).reduce(BigInteger::add).orElse(BigInteger.ZERO);
     }
 
-    private int findPossibleArrangements(Spring spring, int start, int end, int eccIndex) {
-        int sum = 0;
+    private BigInteger findPossibleArrangements(Spring spring, int start, int end, int eccIndex) {
+        BigInteger sum = BigInteger.ZERO;
         for (int i = start; i < end - spring.ecc.get(eccIndex) + 1; i += 1) {
             if (spring.isValid(eccIndex, i, start, end)) {
                 if (eccIndex < spring.ecc.size() - 1 ){
-                    int res = process(spring, i + spring.ecc.get(eccIndex) + 1, eccIndex + 1);
-                    sum += res;
-                } else sum++;
+                    BigInteger res = process(spring, i + spring.ecc.get(eccIndex) + 1, eccIndex + 1);
+                    sum = sum.add(res);
+                } else sum = sum.add(BigInteger.ONE);
             }
         }
         return sum;
     }
 
-    private int process(Spring spring, int s, int eccIndex) {
+    private BigInteger process(Spring spring, int s, int eccIndex) {
         return findPossibleArrangements(spring,
                 s,
                 spring.state.length() - (eccIndex < spring.ecc.size() - 1
@@ -56,13 +65,27 @@ public class Springs extends Advent {
     }
 
     record Spring(String state, List<Integer> ecc) {
-        private boolean isValid(int eccIndex, int location, int start, int end) {
+        public boolean isValid(int eccIndex, int location, int start, int end) {
             Integer ecc = ecc().get(eccIndex);
             return !state.substring(location, location + ecc).contains(".")
                     && (location == 0 || state.charAt(location - 1) != '#')
                     && (location+ecc >= state.length() || state.charAt(location+ecc) != '#')
                     && !state.substring(start, location).contains("#")
                     && (!(eccIndex == ecc().size() - 1) || !state.substring(location + ecc).contains("#"));
+        }
+
+        public Spring multi() {
+            ArrayList<Integer> list = new ArrayList<>();
+            list.addAll(ecc);
+            list.addAll(ecc);
+            return new Spring(state + "?" + state, list);
+        }
+        public Spring triple() {
+            ArrayList<Integer> list = new ArrayList<>();
+            list.addAll(ecc);
+            list.addAll(ecc);
+            list.addAll(ecc);
+            return new Spring(state + "?" + state + "?" + state, list);
         }
     }
 }
