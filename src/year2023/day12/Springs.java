@@ -35,8 +35,11 @@ public class Springs extends Advent {
 //                    }
                     BigInteger res1 = process(s,0,0);
                     BigInteger res2 = process(s.multi(),0,0);
+                    BigInteger remainder = res2.remainder(res1);
                     BigInteger base = res2.divide(res1);
-                    return base.pow(4).multiply(res1);
+                    return remainder.equals(BigInteger.ZERO)
+                            ? base.pow(4).multiply(res1)
+                            : process(s.five(), 0, 0);
                 }).reduce(BigInteger::add).orElse(BigInteger.ZERO);
     }
 
@@ -80,12 +83,14 @@ public class Springs extends Advent {
             list.addAll(ecc);
             return new Spring(state + "?" + state, list);
         }
-        public Spring triple() {
+        public Spring five() {
             ArrayList<Integer> list = new ArrayList<>();
             list.addAll(ecc);
             list.addAll(ecc);
             list.addAll(ecc);
-            return new Spring(state + "?" + state + "?" + state, list);
+            list.addAll(ecc);
+            list.addAll(ecc);
+            return new Spring(state + "?" + state + "?" + state + "?" + state + "?" + state, list);
         }
     }
 }
