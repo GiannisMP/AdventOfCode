@@ -49,7 +49,8 @@ public class Main {
 //        System.out.println(universe.findShortestPaths(2));
 //        System.out.println(universe.findShortestPaths(1000000));
         Springs springs = new Springs();
-        System.out.println(springs.process());
+        System.out.println(springs.process(0));
+        System.out.println(springs.process(4));
 //        Volcano mirrors = new Volcano();
 //        System.out.println(mirrors.calculate(Volcano.Result.TRUE));
 //        SimpleDish simpleDish = new SimpleDish();
