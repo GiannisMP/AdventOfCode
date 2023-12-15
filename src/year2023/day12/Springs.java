@@ -22,14 +22,19 @@ public class Springs extends Advent {
     }
 
     public int process() {
-        process(springs.get(2), 0, 0);
-        return springs.stream().mapToInt(s -> process(s,0,0)).peek(System.out::println).sum();
+        return springs.stream()
+                .mapToInt(s -> {
+                    int res = process(s,0,0);
+                    System.out.println(res + " " + s.state + s.ecc);
+                    return res;
+                })
+                .sum();
     }
 
     private int findPossibleArrangements(Spring spring, int start, int end, int eccIndex) {
         int sum = 0;
         for (int i = start; i < end - spring.ecc.get(eccIndex) + 1; i += 1) {
-            if (spring.isValid(spring.ecc.get(eccIndex), i)) {
+            if (spring.isValid(eccIndex, i, start, end)) {
                 if (eccIndex < spring.ecc.size() - 1 ){
                     int res = process(spring, i + spring.ecc.get(eccIndex) + 1, eccIndex + 1);
                     sum += res;
@@ -42,35 +47,22 @@ public class Springs extends Advent {
     private int process(Spring spring, int s, int eccIndex) {
         return findPossibleArrangements(spring,
                 s,
-                spring.state.length() - (eccIndex < spring.ecc.size() - 1 ? IntStream.range(eccIndex + 1, spring.ecc.size()).map(spring.ecc::get).sum() + spring.ecc.size() - eccIndex - 1 : 0),
+                spring.state.length() - (eccIndex < spring.ecc.size() - 1
+                        ? IntStream.range(eccIndex + 1, spring.ecc.size())
+                            .map(spring.ecc::get)
+                            .sum() + spring.ecc.size() - eccIndex - 1
+                        : 0),
                 eccIndex);
     }
 
-    static final class Spring {
-        private final String state;
-        private final List<Integer> ecc;
-
-        private Set<String> validStates = new HashSet<>();
-
-        Spring(String state, List<Integer> ecc) {
-            this.state = state;
-            this.ecc = ecc;
+    record Spring(String state, List<Integer> ecc) {
+        private boolean isValid(int eccIndex, int location, int start, int end) {
+            Integer ecc = ecc().get(eccIndex);
+            return !state.substring(location, location + ecc).contains(".")
+                    && (location == 0 || state.charAt(location - 1) != '#')
+                    && (location+ecc >= state.length() || state.charAt(location+ecc) != '#')
+                    && !state.substring(start, location).contains("#")
+                    && (!(eccIndex == ecc().size() - 1) || !state.substring(location + ecc).contains("#"));
         }
-
-        public String state() {
-            return state;
-        }
-
-
-        public List<Integer> ecc() {
-            return ecc;
-        }
-
-        private boolean isValid(int size, int location) {
-            return !state.substring(location, location + size).contains(".")
-                    && (location == 0 || state.charAt(location - 1) != '&')
-                    && (location+size >= state.length() - 1 || state.charAt(location+size+1) != '&');
-        }
-
     }
 }
