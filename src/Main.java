@@ -1,8 +1,4 @@
-import year2023.day12.Springs;
-import year2023.day13.Volcano;
-import year2023.day14.Dish;
-import year2023.day14.SimpleDish;
-import year2023.day15.Library;
+import year2023.day16.Cave;
 
 public class Main {
 
@@ -59,8 +55,10 @@ public class Main {
 //        Dish dish = new Dish();
 //        System.out.println(dish.calculateWeight(1000000000));
         //8.22 68%
-        Library library = new Library();
-        System.out.println(library.sumHashes());
-        System.out.println(library.execute());
+//        Library library = new Library();
+//        System.out.println(library.sumHashes());
+//        System.out.println(library.execute());
+        Cave cave = new Cave();
+        System.out.println(cave.energized());
     }
 }
