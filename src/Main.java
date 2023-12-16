@@ -2,6 +2,7 @@ import year2023.day12.Springs;
 import year2023.day13.Volcano;
 import year2023.day14.Dish;
 import year2023.day14.SimpleDish;
+import year2023.day15.Library;
 
 public class Main {
 
@@ -48,14 +49,18 @@ public class Main {
 //        Universe universe = new Universe();
 //        System.out.println(universe.findShortestPaths(2));
 //        System.out.println(universe.findShortestPaths(1000000));
-        Springs springs = new Springs();
-        System.out.println(springs.process(0));
-        System.out.println(springs.process(4));
+//        Springs springs = new Springs();
+//        System.out.println(springs.process(0));
+//        System.out.println(springs.process(4));
 //        Volcano mirrors = new Volcano();
 //        System.out.println(mirrors.calculate(Volcano.Result.TRUE));
 //        SimpleDish simpleDish = new SimpleDish();
 //        System.out.println(simpleDish.calculateWeight());
 //        Dish dish = new Dish();
 //        System.out.println(dish.calculateWeight(1000000000));
+        //8.22 68%
+        Library library = new Library();
+        System.out.println(library.sumHashes());
+        System.out.println(library.execute());
     }
 }
