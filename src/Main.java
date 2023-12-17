@@ -1,4 +1,5 @@
 import year2023.day16.Cave;
+import year2023.day9.Oasis;
 
 public class Main {
 
@@ -54,11 +55,12 @@ public class Main {
 //        System.out.println(simpleDish.calculateWeight());
 //        Dish dish = new Dish();
 //        System.out.println(dish.calculateWeight(1000000000));
-        //8.22 68%
 //        Library library = new Library();
 //        System.out.println(library.sumHashes());
 //        System.out.println(library.execute());
-        Cave cave = new Cave();
-        System.out.println(cave.energized());
+//        Cave cave = new Cave();
+//        System.out.println(cave.energized());
+        Oasis oasis = new Oasis();
+        System.out.println(oasis.calculate(true));
     }
 }
