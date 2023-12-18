@@ -1,5 +1,4 @@
-import year2023.day16.Cave;
-import year2023.day9.Oasis;
+import year2023.day18.Lagoon;
 
 public class Main {
 
@@ -60,7 +59,8 @@ public class Main {
 //        System.out.println(library.execute());
 //        Cave cave = new Cave();
 //        System.out.println(cave.energized());
-        Oasis oasis = new Oasis();
-        System.out.println(oasis.calculate(true));
-    }
+//        Oasis oasis = new Oasis();
+//        System.out.println(oasis.calculate(true));
+        Lagoon lagoon = new Lagoon();
+        System.out.println(lagoon.dug());    }
 }
