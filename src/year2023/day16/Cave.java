@@ -59,21 +59,42 @@ public class Cave extends Advent {
     private boolean isValid(Cursor cursor) {
         return cursor.y >= 0 && cursor.y < map.length && cursor.x >= 0 && cursor.x < map[0].length;
     }
-    private Set<Integer> passed = new HashSet<>();
-    private ArrayList<Integer> cache = new ArrayList<>();
+    private Set<Integer> lava = new HashSet<>();
+    private ArrayList<Integer> passed = new ArrayList<>();
     private void move(Cursor cursor) {
-//        System.out.println(cursor.x + " " + cursor.y + " " + cursor.direction);
-        if (isValid(cursor) && !cache.contains(cursor.hashCode())) {
-            passed.add(cursor.x * 1000 + cursor.y);
-            cache.add(cursor.hashCode());
+        if (isValid(cursor) && !passed.contains(cursor.hashCode())) {
+            lava.add(cursor.x * 1000 + cursor.y);
+            passed.add(cursor.hashCode());
             tiles.get(map[cursor.y][cursor.x]).apply(cursor).forEach(this::move);
         }
     }
 
-    public int energized() {
-        Cursor cursor = new Cursor(0, 0, Direction.RIGHT);
-        move(cursor);
-        return passed.size();
+    public int findMax() {
+        int max = 0;
+        for (int i = 0; i < map.length; i++) {
+            int result = energized(0, i, Direction.RIGHT);
+            if (result > max) max = result;
+            result = energized(map[i].length - 1, i, Direction.LEFT);
+            if (result > max) max = result;
+        }
+        for (int j = 0; j < map[0].length; j++) {
+            int result = energized(j, 0, Direction.DOWN);
+            if (result > max) max = result;
+            result = energized(j, map.length - 1, Direction.UP);
+            if (result > max) max = result;
+        }
+        return max;
     }
 
+    public int energized() {
+        return energized(0, 0, Direction.RIGHT);
+    }
+
+    public int energized(int x, int y, Direction direction) {
+        lava = new HashSet<>();
+        passed = new ArrayList<>();
+        Cursor cursor = new Cursor(x, y, direction);
+        move(cursor);
+        return lava.size();
+    }
 }
