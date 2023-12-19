@@ -62,5 +62,7 @@ public class Main {
 //        Oasis oasis = new Oasis();
 //        System.out.println(oasis.calculate(true));
         Lagoon lagoon = new Lagoon();
-        System.out.println(lagoon.dug());    }
+        System.out.println(lagoon.dugSimple());
+        System.out.println(lagoon.dugHex());
+    }
 }

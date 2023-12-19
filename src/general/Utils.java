@@ -2,10 +2,9 @@ package general;
 
 import java.math.BigInteger;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Utils {
     public static class Print {
@@ -26,6 +25,29 @@ public class Utils {
         public static String yellow(String s) {
             return ANSI_YELLOW + s + ANSI_RESET;
         }
+    }
+
+    public enum Direction { UP, DOWN, LEFT, RIGHT }
+    public record Point(long x, long y){}
+
+    public record Cursor(long x, long y) {
+        public Cursor move(Direction direction, long steps) {
+            Cursor next;
+            switch (direction) {
+                case UP -> next = new Cursor(x, y - steps);
+                case DOWN -> next = new Cursor(x, y + steps);
+                case LEFT -> next = new Cursor(x - steps, y);
+                case RIGHT -> next = new Cursor(x + steps, y);
+                default -> next = new Cursor(x, y);
+            }
+            return next;
+        }
+    }
+
+    public static long area(List<Point> points) {
+        return IntStream.range(1, points.size())
+                .mapToLong(i -> points.get(i-1).x() * points.get(i).y() - points.get(i).x() * points.get(i-1).y())
+                .sum();
     }
 
     public static List<Character> chars(String string) {
