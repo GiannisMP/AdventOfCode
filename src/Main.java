@@ -1,5 +1,6 @@
 import year2023.day16.Cave;
 import year2023.day18.Lagoon;
+import year2023.day20.Pulses;
 
 public class Main {
 
@@ -58,13 +59,17 @@ public class Main {
 //        Library library = new Library();
 //        System.out.println(library.sumHashes());
 //        System.out.println(library.execute());
-        Cave cave = new Cave();
-        System.out.println(cave.energized());
-        System.out.println(cave.findMax());
+//        Cave cave = new Cave();
+//        System.out.println(cave.energized());
+//        System.out.println(cave.findMax());
 //        Oasis oasis = new Oasis();
 //        System.out.println(oasis.calculate(true));
 //        Lagoon lagoon = new Lagoon();
 //        System.out.println(lagoon.dugSimple());
 //        System.out.println(lagoon.dugHex());
+        Pulses pulses = new Pulses();
+        pulses.run();
+        System.out.println(pulses.getTotal());
+        System.out.println(pulses.getMinimumForRX());
     }
 }
