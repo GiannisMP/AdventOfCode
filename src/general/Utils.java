@@ -3,6 +3,7 @@ package general;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -43,6 +44,10 @@ public class Utils {
             return next;
         }
     }
+
+    public static BiPredicate<Integer, Integer> moreOrLess(Character comparator) {
+        return comparator == '>' ? (a, b) -> a > b : (a, b) -> a < b;
+    };
 
     public static long area(List<Point> points) {
         return IntStream.range(1, points.size())

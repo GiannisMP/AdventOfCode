@@ -1,5 +1,6 @@
 import year2023.day16.Cave;
 import year2023.day18.Lagoon;
+import year2023.day19.Aplenty;
 import year2023.day20.Pulses;
 
 public class Main {
@@ -67,9 +68,12 @@ public class Main {
 //        Lagoon lagoon = new Lagoon();
 //        System.out.println(lagoon.dugSimple());
 //        System.out.println(lagoon.dugHex());
-        Pulses pulses = new Pulses();
-        pulses.run();
-        System.out.println(pulses.getTotal());
-        System.out.println(pulses.getMinimumForRX());
+//        Pulses pulses = new Pulses();
+//        pulses.run();
+//        System.out.println(pulses.getTotal());
+//        System.out.println(pulses.getMinimumForRX());
+        Aplenty aplenty = new Aplenty();
+        System.out.println(aplenty.accepted());
+        System.out.println(aplenty.calc());
     }
 }
