@@ -1,3 +1,4 @@
+import year2023.day10.Maze;
 import year2023.day16.Cave;
 import year2023.day18.Lagoon;
 import year2023.day19.Aplenty;
@@ -72,8 +73,11 @@ public class Main {
 //        pulses.run();
 //        System.out.println(pulses.getTotal());
 //        System.out.println(pulses.getMinimumForRX());
-        Aplenty aplenty = new Aplenty();
-        System.out.println(aplenty.accepted());
-        System.out.println(aplenty.calc());
+//        Aplenty aplenty = new Aplenty();
+//        System.out.println(aplenty.accepted());
+//        System.out.println(aplenty.calc());
+        Maze maze = new Maze();
+        System.out.println(maze.getSteps());
+        System.out.println(maze.getArea());
     }
 }

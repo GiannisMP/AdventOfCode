@@ -29,7 +29,17 @@ public class Utils {
     }
 
     public enum Direction { UP, DOWN, LEFT, RIGHT }
-    public record Point(long x, long y){}
+    public record Point(long x, long y){
+        @Override
+        public int hashCode() {
+            return ((Long) (x*10000 + y)).intValue();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof Point && ((Point) obj).x() == x && ((Point) obj).y() == y;
+        }
+    }
 
     public record Cursor(long x, long y) {
         public Cursor move(Direction direction, long steps) {
@@ -50,9 +60,9 @@ public class Utils {
     };
 
     public static long area(List<Point> points) {
-        return IntStream.range(1, points.size())
+        return Math.abs(IntStream.range(1, points.size())
                 .mapToLong(i -> points.get(i-1).x() * points.get(i).y() - points.get(i).x() * points.get(i-1).y())
-                .sum();
+                .sum());
     }
 
     public static List<Character> chars(String string) {
