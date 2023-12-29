@@ -1,5 +1,6 @@
 import year2023.day10.Maze;
 import year2023.day16.Cave;
+import year2023.day17.HeatLoss;
 import year2023.day18.Lagoon;
 import year2023.day19.Aplenty;
 import year2023.day20.Pulses;
@@ -76,8 +77,10 @@ public class Main {
 //        Aplenty aplenty = new Aplenty();
 //        System.out.println(aplenty.accepted());
 //        System.out.println(aplenty.calc());
-        Maze maze = new Maze();
-        System.out.println(maze.getSteps());
-        System.out.println(maze.getArea());
+//        Maze maze = new Maze();
+//        System.out.println(maze.getSteps());
+//        System.out.println(maze.getArea());
+        HeatLoss heatLoss = new HeatLoss();
+        System.out.println(heatLoss.minimizeHeatLoss());
     }
 }

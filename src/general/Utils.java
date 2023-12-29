@@ -28,7 +28,18 @@ public class Utils {
         }
     }
 
-    public enum Direction { UP, DOWN, LEFT, RIGHT }
+    public enum Direction { UP("^"), DOWN("v"), LEFT("<"), RIGHT(">");
+        private final String value;
+
+        Direction(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return value;
+        }
+    }
     public record Point(long x, long y){
         @Override
         public int hashCode() {
