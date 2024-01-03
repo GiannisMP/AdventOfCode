@@ -41,6 +41,13 @@ public class Utils {
         }
     }
     public record Point(long x, long y){
+
+        public int intX() {
+            return ((Long) x).intValue();
+        }
+        public int intY() {
+            return ((Long) y).intValue();
+        }
         @Override
         public int hashCode() {
             return ((Long) (x*10000 + y)).intValue();

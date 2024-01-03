@@ -4,6 +4,7 @@ import year2023.day17.HeatLoss;
 import year2023.day18.Lagoon;
 import year2023.day19.Aplenty;
 import year2023.day20.Pulses;
+import year2023.day21.Steps;
 
 public class Main {
 
@@ -80,7 +81,10 @@ public class Main {
 //        Maze maze = new Maze();
 //        System.out.println(maze.getSteps());
 //        System.out.println(maze.getArea());
-        HeatLoss heatLoss = new HeatLoss();
-        System.out.println(heatLoss.minimizeHeatLoss());
+//        HeatLoss heatLoss = new HeatLoss();
+//        System.out.println(heatLoss.minimizeHeatLoss());
+        Steps steps = new Steps();
+        System.out.println(steps.move(64));
+        System.out.println(steps.numberOfPossibleDestinations(26501365));
     }
 }
