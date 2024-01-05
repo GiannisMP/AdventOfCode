@@ -81,10 +81,10 @@ public class Main {
 //        Maze maze = new Maze();
 //        System.out.println(maze.getSteps());
 //        System.out.println(maze.getArea());
-//        HeatLoss heatLoss = new HeatLoss();
-//        System.out.println(heatLoss.minimizeHeatLoss());
-        Steps steps = new Steps();
-        System.out.println(steps.move(64));
-        System.out.println(steps.numberOfPossibleDestinations(26501365));
+        HeatLoss heatLoss = new HeatLoss();
+        System.out.println(heatLoss.minimizeHeatLoss());
+//        Steps steps = new Steps();
+//        System.out.println(steps.move(64));
+//        System.out.println(steps.numberOfPossibleDestinations(26501365));
     }
 }
