@@ -11,7 +11,7 @@ public class Node {
     private final Utils.Point position;
     private final int weight;
     private int distance = 100000;
-    private Map<Node, Integer> adjacentNodes = new HashMap<>();
+    private final Map<Node, Integer> adjacentNodes = new HashMap<>();
     private List<Node> shortestPath = new ArrayList<>();
 
     public Node(int x, int y, int weight) {
@@ -65,20 +65,11 @@ public class Node {
     }
 
     public Direction getCurrentDirection() {
-        return !shortestPath.isEmpty()
-                ? shortestPath.get(shortestPath.size()-1).getDirection(this)
-                : null;
+        return !shortestPath.isEmpty() ? shortestPath.getLast().getDirection(this) : null;
     }
 
     public Direction getDirection(Node next) {
-        if (position.x() < next.position.x())
-            return Direction.DOWN;
-        else if (position.x() > next.position.x())
-            return Direction.UP;
-        else if (position.y() > next.position.y())
-            return Direction.LEFT;
-        else
-            return Direction.RIGHT;
+        return getDirection(this, next);
     }
 
     public static Direction getDirection(Node current, Node next) {
@@ -90,10 +81,6 @@ public class Node {
             return Direction.LEFT;
         else
             return Direction.RIGHT;
-    }
-
-    public boolean isValidNeighbour(Node next){
-        return shortestPath.size() < 3 || isValidNeighbour(next, this, shortestPath);
     }
 
     private static boolean sameDirection(List<Node> nodes) {
@@ -113,16 +100,11 @@ public class Node {
                 .noneMatch(Node::sameDirection));
     }
 
-    public static boolean isValidNeighbour(Node next, Node current, List<Node> path) {
-        return path.size() < 3 || !IntStream.range(path.size() - 2, path.size())
-                .mapToObj(path::get)
+    public boolean isValidNeighbour(Node next) {
+        return shortestPath.size() < 3 || !IntStream.range(shortestPath.size() - 2, shortestPath.size())
+                .mapToObj(shortestPath::get)
                 .map(Node::getCurrentDirection)
                 .filter(d -> !Objects.isNull(d))
-                .allMatch(d -> d.equals(getDirection(current, next)) && d.equals(current.getCurrentDirection()));
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return position.equals(((Node) obj).getPosition());
+                .allMatch(d -> d.equals(getDirection(next)) && d.equals(getCurrentDirection()));
     }
 }
