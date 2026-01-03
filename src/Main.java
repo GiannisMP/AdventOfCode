@@ -6,11 +6,13 @@ import year2023.day19.Aplenty;
 import year2023.day20.Pulses;
 import year2023.day21.Steps;
 import year2025.day1.Safe;
+import year2025.day2.GiftShop;
 
 public class Main {
 
     public static void main(String[] args) {
         Safe safe = new Safe();
-        System.out.println(safe.p1());
+        GiftShop giftShop = new GiftShop();
+        System.out.println(giftShop.p1(true));
     }
 }
